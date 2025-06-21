@@ -1,0 +1,91 @@
+package com.ecomerccer.loja.model;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "Produto")
+public class Produto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idproduto;
+
+    private String nomeProduto;
+    private String descProduto;
+    private BigDecimal precoProduto;
+    private String categoriaProduto; // Corrigido: "CategoriaProduto" → "categoriaProduto"
+    private Boolean estoqueProduto;
+    private LocalDate dataCadastro;
+
+    @Lob
+    private String imagemProduto;
+
+    // Getters
+    public long getIdproduto() {
+        return idproduto;
+    }
+
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public String getDescProduto() {
+        return descProduto;
+    }
+
+    public BigDecimal getPrecoProduto() {
+        return precoProduto;
+    }
+
+    public String getCategoriaProduto() {
+        return categoriaProduto;
+    }
+
+    public Boolean getEstoqueProduto() {
+        return estoqueProduto;
+    }
+
+    public LocalDate getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public String getImagemProduto() {
+        return imagemProduto;
+    }
+
+    // Setters
+    public void setIdproduto(long idproduto) {
+        this.idproduto = idproduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
+    public void setDescProduto(String descProduto) {
+        this.descProduto = descProduto;
+    }
+
+    public void setPrecoProduto(BigDecimal precoProduto) {
+        this.precoProduto = precoProduto;
+    }
+
+    public void setCategoriaProduto(String categoriaProduto) {
+        this.categoriaProduto = categoriaProduto;
+    }
+
+    public void setEstoqueProduto(Boolean estoqueProduto) {
+        this.estoqueProduto = estoqueProduto;
+    }
+
+    public void setDataCadastro(LocalDate dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public void setImagemProduto(String imagemProduto) {
+        this.imagemProduto = imagemProduto;
+    }
+}
