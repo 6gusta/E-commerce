@@ -1,9 +1,9 @@
 package com.ecomerccer.loja.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Produto")
@@ -16,12 +16,18 @@ public class Produto {
     private String nomeProduto;
     private String descProduto;
     private BigDecimal precoProduto;
-    private String categoriaProduto; // Corrigido: "CategoriaProduto" → "categoriaProduto"
+
+    @Enumerated(EnumType.STRING)
+    private Categoria categoriaProduto;
+
     private Boolean estoqueProduto;
     private LocalDate dataCadastro;
 
     @Lob
     private String imagemProduto;
+
+    @ElementCollection
+    private List<String> tamanhosDisponiveis;
 
     // Getters
     public long getIdproduto() {
@@ -40,7 +46,7 @@ public class Produto {
         return precoProduto;
     }
 
-    public String getCategoriaProduto() {
+    public Categoria getCategoriaProduto() {
         return categoriaProduto;
     }
 
@@ -73,7 +79,7 @@ public class Produto {
         this.precoProduto = precoProduto;
     }
 
-    public void setCategoriaProduto(String categoriaProduto) {
+    public void setCategoriaProduto(Categoria categoriaProduto) {
         this.categoriaProduto = categoriaProduto;
     }
 
