@@ -36,7 +36,9 @@ public class ProdutoController {
                 produto.getCategoriaProduto(),
                 produto.getEstoqueProduto(),
                 produto.getDataCadastro(),
-                produto.getImagemProduto()
+                produto.getImagemProduto(),
+                produto.getTamanhosDisponiveis(),
+                produto.getQuantidade()
         );
 
         return ResponseEntity.ok("Produto cadastrado com sucesso");

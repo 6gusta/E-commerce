@@ -29,6 +29,10 @@ public class Produto {
     @ElementCollection
     private List<String> tamanhosDisponiveis;
 
+    private int quantidade;
+
+    private int quantidadeintemCliente;
+
     // Getters
     public long getIdproduto() {
         return idproduto;
@@ -93,5 +97,29 @@ public class Produto {
 
     public void setImagemProduto(String imagemProduto) {
         this.imagemProduto = imagemProduto;
+    }
+
+    public List<String> getTamanhosDisponiveis() {
+        return tamanhosDisponiveis;
+    }
+
+    public void setTamanhosDisponiveis(List<String> tamanhosDisponiveis) {
+        this.tamanhosDisponiveis = tamanhosDisponiveis;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public int getQuantidadeintemCliente() {
+        return quantidadeintemCliente;
+    }
+
+    public void setQuantidadeintemCliente(int quantidadeintemCliente) {
+        this.quantidadeintemCliente = quantidadeintemCliente;
     }
 }

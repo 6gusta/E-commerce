@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class CadastroProduto {
 
     @Autowired
     private ProdutoRepository produtoRepository;
-    public Produto cadastrarprodutos(String nomeProduto, String descricaoProduto, BigDecimal precoUnitario, Categoria CategoriaProduto, Boolean estoqueProduto, LocalDate dataCadastro, String imagemProduto) {
+    public Produto cadastrarprodutos(String nomeProduto, String descricaoProduto, BigDecimal precoUnitario, Categoria CategoriaProduto, Boolean estoqueProduto, LocalDate dataCadastro, String imagemProduto, List tamanhosDisponiveis, int quantidade) {
 
         Produto produto = new Produto();
 
@@ -25,6 +26,9 @@ public class CadastroProduto {
         produto.setEstoqueProduto(estoqueProduto);
         produto.setDataCadastro(dataCadastro);
         produto.setImagemProduto(imagemProduto);
+        produto.setTamanhosDisponiveis(tamanhosDisponiveis);
+        produto.setQuantidade(quantidade);
+
 
 
 

@@ -24,6 +24,7 @@ public class SecurityConfig {
                                 "/swagger-ui.html",
                                 "/produto/**",
                                 "/cart/**",
+                                "/intempedido/**",
                                 "/h2-console/**"
                         ).permitAll()
                         .anyRequest().authenticated()
