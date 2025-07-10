@@ -25,7 +25,9 @@ public class SecurityConfig {
                                 "/produto/**",
                                 "/cart/**",
                                 "/intempedido/**",
-                                "/h2-console/**"
+                                "/h2-console/**",
+                                "/metodo/**",
+                                   "/cliente/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );

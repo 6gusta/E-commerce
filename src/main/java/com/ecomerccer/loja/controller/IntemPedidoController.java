@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -26,27 +27,25 @@ public class IntemPedidoController {
     }
 
     @PostMapping("/enviapedidos")
-    public ResponseEntity<String> intemselecionado(@RequestBody IntemPedido intemPedido){
+    public ResponseEntity<?> intemselecionado(@RequestBody IntemPedido intemPedido) {
+        // Salva o pedido no banco e retorna com ID preenchido
+        IntemPedido pedidoSalvo = produtos.produtoSelecionado(
+                intemPedido.getNomeProduto(),
+                intemPedido.getCategoriaProduto(),
+                intemPedido.getPrecoUnitario(),
+                intemPedido.getQuantidade(),
+                intemPedido.getDescricaoProduto(),
+                intemPedido.getTamanhosDisponiveis(),
+                intemPedido.getQuantidadeintemCliente()
+        );
 
-      produtos.produtoSelecionado(
-
-
-
-              intemPedido.getNomeProduto(),
-              intemPedido.getCategoriaProduto(),
-              intemPedido.getPrecoUnitario(),
-              intemPedido.getQuantidade(),
-              intemPedido.getDescricaoProduto(),
-              intemPedido.getTamanhosDisponiveis(),
-              intemPedido.getQuantidadeintemCliente()
-
-      );
-      return ResponseEntity.ok(" Pedido Enviado com sucesso");
-
-
-
-
+        // Monta um JSON com o id do pedido para enviar pro Angular
+        return ResponseEntity.ok().body(Map.of(
+                "mensagem", "Pedido Enviado com sucesso",
+                "idPedido", pedidoSalvo.getIdIntemPedido() // ou getIdIntemPedido()
+        ));
     }
+
 
 
 
