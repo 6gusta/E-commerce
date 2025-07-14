@@ -37,7 +37,9 @@ public class SecurityConfig {
                                 "/h2-console/**",
                                 "/metodo/**",
                                 "/cliente/**",
-                                "/admin/login"
+                                "/admin/login",
+                                "/perfil/**"
+
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/produto/register").hasRole("ADMIN") // ✅ Protegido para ADMIN
