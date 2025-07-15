@@ -20,6 +20,8 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private Categoria categoriaProduto;
 
+    private TipoProduto tipo;
+
     private Boolean estoqueProduto;
     private LocalDate dataCadastro;
 
@@ -122,5 +124,13 @@ public class Produto {
 
     public void setValorPromocional(BigDecimal valorPromocional) {
         this.valorPromocional = valorPromocional;
+    }
+
+    public TipoProduto getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoProduto tipo) {
+        this.tipo = tipo;
     }
 }

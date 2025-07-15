@@ -2,6 +2,7 @@ package com.ecomerccer.loja.service;
 
 import com.ecomerccer.loja.model.Categoria;
 import com.ecomerccer.loja.model.Produto;
+import com.ecomerccer.loja.model.TipoProduto;
 import com.ecomerccer.loja.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class CadastroProduto {
 
     @Autowired
     private ProdutoRepository produtoRepository;
-    public Produto cadastrarprodutos(String nomeProduto, String descricaoProduto, BigDecimal precoUnitario, Categoria CategoriaProduto, Boolean estoqueProduto, LocalDate dataCadastro, String imagemProduto, List tamanhosDisponiveis, int quantidade, BigDecimal valorPromocional) {
+    public Produto cadastrarprodutos(String nomeProduto, String descricaoProduto, BigDecimal precoUnitario, Categoria CategoriaProduto, Boolean estoqueProduto, LocalDate dataCadastro, String imagemProduto, List tamanhosDisponiveis, int quantidade, BigDecimal valorPromocional, TipoProduto tipo) {
 
         Produto produto = new Produto();
 
@@ -23,6 +24,7 @@ public class CadastroProduto {
         produto.setDescProduto( descricaoProduto);
         produto.setPrecoProduto( precoUnitario);
         produto.setCategoriaProduto(CategoriaProduto);
+        produto.setTipo(tipo);
         produto.setEstoqueProduto(estoqueProduto);
         produto.setDataCadastro(dataCadastro);
         produto.setImagemProduto(imagemProduto);
