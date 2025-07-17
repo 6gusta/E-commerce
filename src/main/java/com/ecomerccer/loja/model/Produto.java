@@ -19,8 +19,10 @@ public class Produto {
 
     @Enumerated(EnumType.STRING)
     private Categoria categoriaProduto;
-
+    @Enumerated(EnumType.STRING)
     private TipoProduto tipo;
+
+
 
     private Boolean estoqueProduto;
     private LocalDate dataCadastro;
@@ -29,7 +31,8 @@ public class Produto {
     private String imagemProduto;
 
     @ElementCollection
-    private List<String> tamanhosDisponiveis;
+    @Enumerated(EnumType.STRING)
+    private List<Tamanho> tamanhosDisponiveis;
 
     private int quantidade;
 
@@ -102,13 +105,9 @@ public class Produto {
         this.imagemProduto = imagemProduto;
     }
 
-    public List<String> getTamanhosDisponiveis() {
-        return tamanhosDisponiveis;
-    }
 
-    public void setTamanhosDisponiveis(List<String> tamanhosDisponiveis) {
-        this.tamanhosDisponiveis = tamanhosDisponiveis;
-    }
+
+
 
     public int getQuantidade() {
         return quantidade;
@@ -132,5 +131,14 @@ public class Produto {
 
     public void setTipo(TipoProduto tipo) {
         this.tipo = tipo;
+    }
+
+
+    public List<Tamanho> getTamanhosDisponiveis() {
+        return tamanhosDisponiveis;
+    }
+
+    public void setTamanhosDisponiveis(List<Tamanho> tamanhosDisponiveis) {
+        this.tamanhosDisponiveis = tamanhosDisponiveis;
     }
 }
