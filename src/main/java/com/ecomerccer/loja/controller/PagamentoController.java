@@ -1,5 +1,8 @@
 package com.ecomerccer.loja.controller;
 
+import com.ecomerccer.loja.model.IntemPedido;
+import com.ecomerccer.loja.service.SelectProduto;
+import com.ecomerccer.loja.service.VerPedidoUser;
 import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +19,47 @@ public class PagamentoController {
         Stripe.apiKey = "sk_test_51RiRDOQLNMAVnpmccFjpwh87RkYuPaOG27wqJgQTJEtmQjfQ4ft1nQca4qN5xtlyb5GDmS3agcpPezBvOO1SRLYv00WsvzT1TZ";
     }
 
+    String codigo = "DU" + UUID.randomUUID().toString().substring(0,8).toUpperCase() + "BR";
+
+
+    private final SelectProduto produto;
+    private final VerPedidoUser verPedidoUser;
+
+    public PagamentoController(SelectProduto produto, VerPedidoUser verPedidoUser) {
+        this.produto = produto;
+        this.verPedidoUser = verPedidoUser;
+    }
+
+
     @PostMapping("/pagamentocartao")
-    public ResponseEntity<Map<String, Object>> criaCheckout() {
+    public ResponseEntity<Map<String, Object>> criaCheckout(@RequestBody Map<String, Object> dados) {
         Map<String, Object> retorno = new HashMap<>();
 
         try {
+
+            Long idPedido = Long.valueOf(dados.get("idPedido").toString());
+
+            IntemPedido intemPedido = verPedidoUser.VerPedidoUsuario(idPedido);
+
+            if (intemPedido == null){
+                retorno.put(" erro", " pedido não econtrado");
+                return ResponseEntity.status(404).body(retorno);
+            }
+
             List<Object> lista = new ArrayList<>();
             Map<String, Object> item = new HashMap<>();
             Map<String, Object> priceData = new HashMap<>();
             Map<String, Object> productData = new HashMap<>();
 
-            productData.put("name", "Produto Teste");
+            productData.put("name", intemPedido.getNomeProduto());
 
             priceData.put("currency", "brl");
-            priceData.put("unit_amount", 5000); // R$ 50,00
+            long valorcentavos = Math.round(intemPedido.getPrecoUnitario().doubleValue() * 100);
+            priceData.put("unit_amount", valorcentavos); // R$ 50,00
             priceData.put("product_data", productData);
 
             item.put("price_data", priceData);
-            item.put("quantity", 1);
+            item.put("quantity", intemPedido.getQuantidadeintemCliente());
             lista.add(item);
 
             Map<String, Object> params = new HashMap<>();
@@ -42,11 +68,14 @@ public class PagamentoController {
             params.put("mode", "payment");
             params.put("success_url", "http://localhost:4200/sucesso");
             params.put("cancel_url", "http://localhost:4200/erro");
+            params.put("client_reference_id", idPedido.toString());
 
             Session session = Session.create(params);
 
             retorno.put("id", session.getId());
             retorno.put("url", session.getUrl());
+            retorno.put("codigoRastreamento", codigo);
+
 
             return ResponseEntity.ok(retorno);
 
