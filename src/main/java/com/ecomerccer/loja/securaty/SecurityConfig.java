@@ -40,7 +40,8 @@ public class SecurityConfig {
                                 "/admin/login",
                                 "/perfil/**",
                                 "/buscar/**",
-                                "/filtro/**"
+                                "/filtro/**",
+                                "/pix/**"
 
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
