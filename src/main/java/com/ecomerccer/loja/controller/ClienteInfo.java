@@ -17,21 +17,9 @@ public class ClienteInfo {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<String> cadastracliente(@RequestBody InfoCliente infoCliente) {
-
-        infoClienteService.dadosCliente(
-                infoCliente.getNome(),
-                infoCliente.getTelefone(),
-                infoCliente.getEmail(),
-                infoCliente.getEndereco(),
-                infoCliente.getCidade(),
-                infoCliente.getEstado(),
-                infoCliente.getCep(),
-                infoCliente.getComplemento()
-        );
-
-        return ResponseEntity.ok(" Infomaçoes do Cliente cadastrado com sucesso");
-
+    public ResponseEntity<InfoCliente> cadastracliente(@RequestBody InfoCliente infoCliente) {
+        // Salva o cliente e retorna o objeto completo com ID
+        InfoCliente clienteSalvo = infoClienteService.salvarCliente(infoCliente);
+        return ResponseEntity.ok(clienteSalvo);
     }
-
 }

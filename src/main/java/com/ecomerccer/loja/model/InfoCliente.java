@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 public class InfoCliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idCliente;
+    private Long idCliente;
     private String nome;
     private String telefone;
     private String email;

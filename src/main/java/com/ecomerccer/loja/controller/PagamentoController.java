@@ -59,7 +59,7 @@ public class PagamentoController {
             priceData.put("product_data", productData);
 
             item.put("price_data", priceData);
-            item.put("quantity", intemPedido.getQuantidadeintemCliente());
+            item.put("quantity", intemPedido.getQuantidadeItemCliente());
             lista.add(item);
 
             Map<String, Object> params = new HashMap<>();

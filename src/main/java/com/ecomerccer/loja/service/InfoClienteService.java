@@ -8,36 +8,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class InfoClienteService {
 
-    private final InfoClienteRepository  infoClienteRepository;
-
+    private final InfoClienteRepository infoClienteRepository;
 
     public InfoClienteService(InfoClienteRepository infoClienteRepository) {
         this.infoClienteRepository = infoClienteRepository;
     }
 
-    public InfoCliente dadosCliente(    String nome,
-                                        String telefone,
-                                        String email,
-                                        String endereco,
-                                        String cidade,
-                                        String estado,
-                                        String cep,
-                                        String complemento){
-
-        InfoCliente infoCliente = new InfoCliente();
-        infoCliente.setNome(nome);
-        infoCliente.setTelefone(telefone);
-        infoCliente.setEmail(email);
-        infoCliente.setEndereco(endereco);
-        infoCliente.setCidade(cidade);
-        infoCliente.setEstado(estado);
-        infoCliente.setCep(cep);
-        infoCliente.setComplemento(complemento);
-
+    /** Salva o cliente e retorna o objeto completo com ID gerado */
+    public InfoCliente salvarCliente(InfoCliente infoCliente) {
         return infoClienteRepository.save(infoCliente);
+    }
 
-
-
-
+    /** Busca cliente pelo ID */
+    public InfoCliente buscarPorId(Long idCliente) {
+        return infoClienteRepository.findById(idCliente).orElse(null);
     }
 }
+

@@ -4,6 +4,7 @@ package com.ecomerccer.loja.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -12,15 +13,32 @@ public class IntemPedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idIntemPedido;
     private String nomeProduto;
+
+    @Enumerated(EnumType.STRING)
     private Categoria CategoriaProduto;
+
     private BigDecimal precoUnitario;
-    private int quantidade;
+
+
+
+
     private String descricaoProduto;
+
     @ElementCollection
     private List<String> tamanhosDisponiveis;
-   private  int quantidadeintemCliente;
+    private Integer quantidadeItemCliente;
 
    private BigDecimal total;
+    private LocalDateTime dataPedido;
+
+    private boolean pedidoFinalizado;
+    @Enumerated(EnumType.STRING)
+    private TipoPagamento tipoPagamento;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id_cliente")
+    private InfoCliente cliente;
+
+
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -46,13 +64,7 @@ public class IntemPedido {
         this.precoUnitario = precoUnitario;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
 
     public String getDescricaoProduto() {
         return descricaoProduto;
@@ -70,12 +82,56 @@ public class IntemPedido {
         this.tamanhosDisponiveis = tamanhosDisponiveis;
     }
 
-    public int getQuantidadeintemCliente() {
-        return quantidadeintemCliente;
+
+
+
+
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setQuantidadeintemCliente(int quantidadeintemCliente) {
-        this.quantidadeintemCliente = quantidadeintemCliente;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public LocalDateTime getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(LocalDateTime dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public boolean isPedidoFinalizado() {
+        return pedidoFinalizado;
+    }
+
+    public void setPedidoFinalizado(boolean pedidoFinalizado) {
+        this.pedidoFinalizado = pedidoFinalizado;
+    }
+
+    public TipoPagamento getTipoPagamento() {
+        return tipoPagamento;
+    }
+
+    public void setTipoPagamento(TipoPagamento tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
+    }
+
+    public InfoCliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(InfoCliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Integer getQuantidadeItemCliente() {
+        return quantidadeItemCliente;
+    }
+
+    public void setQuantidadeItemCliente(Integer quantidadeItemCliente) {
+        this.quantidadeItemCliente = quantidadeItemCliente;
     }
 
     public long getIdIntemPedido() {
@@ -84,13 +140,5 @@ public class IntemPedido {
 
     public void setIdIntemPedido(long idIntemPedido) {
         this.idIntemPedido = idIntemPedido;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
     }
 }

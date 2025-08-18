@@ -1,14 +1,14 @@
 package com.ecomerccer.loja.service;
 
 
-import com.ecomerccer.loja.model.Categoria;
-import com.ecomerccer.loja.model.IntemPedido;
-import com.ecomerccer.loja.model.Produto;
+import com.ecomerccer.loja.model.*;
 import com.ecomerccer.loja.repository.IntemPedidoRepository;
 import com.ecomerccer.loja.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,25 +25,34 @@ public class SelectProduto {
         this.produto = produto;
     }
 
-    public IntemPedido produtoSelecionado(String nomeProduto, Categoria CategoriaProduto, BigDecimal precoUnitario, int quantidade, String descricaoProduto, List tamanhosDisponiveis, int quantidadeintemCliente){
+    public IntemPedido produtoSelecionado(String nomeProduto, Categoria CategoriaProduto, BigDecimal precoUnitario,  String descricaoProduto, List tamanhosDisponiveis, int quantidadeintemCliente, TipoPagamento    tipoPagamento,  InfoCliente cliente){
 
 
-           if (quantidade > quantidadeintemCliente){
-               throw new IllegalArgumentException(" valor acima do que tem no estoque ");
-           }
+
         IntemPedido intemPedido = new IntemPedido();
+
         intemPedido.setNomeProduto(nomeProduto);
         intemPedido.setCategoriaProduto(CategoriaProduto);
         intemPedido.setPrecoUnitario(precoUnitario);
         intemPedido.setTamanhosDisponiveis(tamanhosDisponiveis);
-        intemPedido.setQuantidadeintemCliente(quantidadeintemCliente);
+        intemPedido.setQuantidadeItemCliente(quantidadeintemCliente);
         intemPedido.setDescricaoProduto(descricaoProduto);
-        intemPedido.setQuantidade(quantidade);
+
+        intemPedido.setTipoPagamento(tipoPagamento);
 
         BigDecimal total = produto.calcularTotal(precoUnitario, quantidadeintemCliente);
         intemPedido.setTotal(total);
+        intemPedido.setDataPedido(LocalDateTime.now());
+        intemPedido.setPedidoFinalizado(false);
+        intemPedido.setCliente(cliente);
 
 
+        //if(tipoPagamento ==  TipoPagamento.CARTAO) {
+
+
+       // }else{
+
+       // }//
         return intemPedidoRepository.save(intemPedido);
 
 
@@ -53,4 +62,9 @@ public class SelectProduto {
 
 
     }
+
+    public IntemPedido salvarPedido(IntemPedido pedido) {
+        return intemPedidoRepository.save(pedido);
+    }
+
 }
