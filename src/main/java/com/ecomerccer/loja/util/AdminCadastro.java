@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 
-public class AdminCadastro {
+public class    AdminCadastro {
 
     private final CadastroAdminRepository cadastroAdminRepository;
     private final PasswordEncoder encoder;

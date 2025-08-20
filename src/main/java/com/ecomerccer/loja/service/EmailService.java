@@ -1,7 +1,9 @@
 package com.ecomerccer.loja.service;
 
-import org.springframework.mail.SimpleMailMessage;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,13 +15,21 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void enviaemail(String para, String assunto, String corpo){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(para);
-        message.setSubject(assunto);
-        message.setText(corpo);
+    public void enviaemail(String para, String assunto, String corpoHtml) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
 
+            // true = multipart, "UTF-8" garante acentos
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(para);
+            helper.setSubject(assunto);
 
-        mailSender.send(message);
+            // 👇 ESSA LINHA FAZ O CONTEÚDO SER HTML
+            helper.setText(corpoHtml, true);
+
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Erro ao enviar e-mail", e);
+        }
     }
 }
