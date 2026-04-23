@@ -51,9 +51,9 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
 
                 // ❗️🚫 Aqui é onde você barra quem não for ADMIN
-                if (!"ADMIN".equalsIgnoreCase(role)) {
-                    throw new Exception("Acesso negado: apenas ADMIN pode acessar esta área");
-                }
+              /* if (!"ADMIN".equalsIgnoreCase(role)) {
+    throw new Exception("Acesso negado: apenas ADMIN pode acessar esta área");
+}*/
 
                 List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
 
